@@ -29,14 +29,63 @@ const MaterialBottomTabs = createMaterialBottomTabNavigator();
 const MaterialTopTabs = createMaterialTopTabNavigator();
 
 
+
+
 export default class App extends Component {
 
     //stack for home
     createHomeStack = () =>
     <Stack.Navigator>
-      <Stack.Screen name="Feed" component={Feed}  />
-      <Stack.Screen name="Detail" component={Detail}  />
+      <Stack.Screen 
+        name="Feed" 
+        component={Feed} 
+        options={{title: "My Feed",
+        headerStyle: {backgroundColor: "black"}, 
+        headerTintColor: "white"}}   
+        />
+
+      <Stack.Screen 
+        name="Detail" 
+        component={Detail}
+        options={{title: "Detail Screen",
+        headerStyle: {backgroundColor: "blue"}, 
+        headerTintColor: "white"}}   
+        />
+          
+      {/* tabs */}
+      <Stack.Screen name="Bottom Tabs" children={this.createBottomTabs}  />
+      <Stack.Screen name="Top Tabs" children={this.createTopTabs}  />
+
+
     </Stack.Navigator>
+
+    //Top Tabs
+    createTopTabs = (props) => {
+      // console.log(props);
+
+      return <MaterialTopTabs.Navigator>
+        <MaterialTopTabs.Screen 
+          name="Tab1" 
+          component={Tab1} 
+          options={{title: props.route.params.name}} 
+          />
+        <MaterialTopTabs.Screen name="Tab2" component={Tab2} />
+        <MaterialTopTabs.Screen name="Tab3" component={Tab3} />
+      </MaterialTopTabs.Navigator>
+    }
+
+    //Bottom Tabs
+    createBottomTabs = () => {
+
+      return <MaterialBottomTabs.Navigator>
+        <MaterialBottomTabs.Screen name="Tab1" component={Tab1} />
+        <MaterialBottomTabs.Screen name="Tab2" component={Tab2} />
+        <MaterialBottomTabs.Screen 
+          name="Tab3" 
+          component={Tab3} 
+          options={{title: "BT"}} />
+      </MaterialBottomTabs.Navigator>
+    }
 
 
 
